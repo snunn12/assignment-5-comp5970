@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'screens/content_view.dart';
+import 'screens/auth_gate.dart';
 import 'package:provider/provider.dart';
 import 'providers/favorites_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 //Note I found the way to save UI on google pretty neet
 //I thought it was somehow going to need to use something with caching
@@ -10,6 +12,10 @@ import 'providers/favorites_provider.dart';
 Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
 
   final uiPrefs = await SharedPreferences.getInstance();
   final isDarkMode = uiPrefs.getBool("isDarkMode") ?? false;
@@ -37,7 +43,7 @@ class FavoritesApp extends StatelessWidget {
               scaffoldBackgroundColor: Colors.black
             ),
             themeMode: favoritesProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-            home: ContentView(),
+            home: const AuthGate(),
           );
         })
       );

@@ -1,4 +1,5 @@
 import 'package:favorites/providers/favorites_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,6 +44,15 @@ class SettingsScreen extends StatelessWidget {
                     },
                   ),
                 ],
+              ),
+
+              SizedBox(height: 24),
+
+              FilledButton.tonal(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                },
+                child: Text("Log Out"),
               ),
             ],
           ),
